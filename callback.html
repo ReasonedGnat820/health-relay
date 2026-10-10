@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mAsc/yxm0WYHOGI/L3Lxib4Co2nGeIiJUKXlTUv1jLg='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>Family Health — linking</title>
+<style>body{font:16px -apple-system,system-ui,sans-serif;margin:0;padding:40px 16px;background:#f3f7f7;color:#14302f}p{max-width:32em;margin:0 auto}</style>
+</head>
+<body>
+<p id="msg">Linking…</p>
+<script>(function () {
+  // Where each kind of link goes back to. Only these addresses are ever used.
+  //   t = the NAS test folder on the home network
+  //   l = the live app over Tailscale (filled in at go-live)
+  var TARGETS = {
+    t: "http://192.168.1.68/health-tracker-test/api.php",
+    l: ""
+  };
+  var msg = document.getElementById("msg");
+  var q = new URLSearchParams(location.search);
+  // Take the code out of this page's address straight away.
+  history.replaceState(null, "", location.pathname);
+  var state = q.get("state") || "";
+  var code = q.get("code") || "";
+  var error = q.get("error") || "";
+  var target = TARGETS[state.charAt(0)];
+  if (!/^[a-z]\.[0-9a-f]{32}$/.test(state) || !target) {
+    msg.textContent = "Nothing to do here. Start linking from the Family Health app.";
+    return;
+  }
+  if (!/^[A-Za-z0-9._~\-]{0,512}$/.test(code) || !/^[a-z_]{0,40}$/.test(error)) {
+    msg.textContent = "The answer from the service looked wrong. Start again from the app.";
+    return;
+  }
+  var out = new URLSearchParams({ a: "link-finish", state: state });
+  if (code) out.set("code", code);
+  if (error) out.set("error", error);
+  msg.textContent = "Returning to Family Health…";
+  location.replace(target + "?" + out.toString());
+})();
+</script>
+</body>
+</html>
