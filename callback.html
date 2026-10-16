@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mAsc/yxm0WYHOGI/L3Lxib4Co2nGeIiJUKXlTUv1jLg='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-Gpr89vrzWdegufD9yNwWCvIQzKz3ihqhUah3om8uTNA='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <title>Family Health — linking</title>
 <style>body{font:16px -apple-system,system-ui,sans-serif;margin:0;padding:40px 16px;background:#f3f7f7;color:#14302f}p{max-width:32em;margin:0 auto}</style>
 </head>
@@ -14,10 +14,10 @@
 <script>(function () {
   // Where each kind of link goes back to. Only these addresses are ever used.
   //   t = the NAS test folder on the home network
-  //   l = the live app over Tailscale (filled in at go-live)
+  //   l = the live app over Tailscale
   var TARGETS = {
     t: "http://192.168.1.68/health-tracker-test/api.php",
-    l: ""
+    l: "https://synology.tail4d2c26.ts.net:8443/api.php"
   };
   var msg = document.getElementById("msg");
   var q = new URLSearchParams(location.search);
